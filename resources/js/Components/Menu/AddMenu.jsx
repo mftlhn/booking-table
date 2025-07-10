@@ -1,0 +1,161 @@
+import { Button } from '@/shadcn/ui/button'
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/shadcn/ui/dialog'
+import { Input } from '@/shadcn/ui/input'
+import { Label } from '@/shadcn/ui/label'
+import { Textarea } from '@/shadcn/ui/textarea'
+import { useForm } from '@inertiajs/react'
+import numeral from 'numeral'
+import React, { useState } from 'react'
+import Select from 'react-select'
+import AddImage from './AddImage'
+import { LucideTrash } from 'lucide-react'
+
+const AddMenu = () => {
+    const [open, setOpen] = useState(false);
+    const { data, setData, post, processing, errors, reset } = useForm({
+        name: '',
+        category: '',
+        price: '0',
+        description: '',
+        images: []
+    })
+
+    const handleAddImage = (file) => {
+        setData("images", [...data.images, file]);
+        // const preview = URL.createObjectURL(file)
+        // setImages([...images, { file, preview }]);
+    };
+
+    const handleRemoveImage = (index) => {
+        // const newItems = images.filter((_, i) => i !== index);
+        setData("images", data.images.filter((_, i) => i !== index));
+        // setImages(newItems);
+    };
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        post('/admin/menus/store', {
+            forceFormData: true, // ⬅️ penting! agar images dikirim sebagai FormData
+            preserveScroll: true,
+            onSuccess: () => {
+                setOpen(false);
+                reset()
+            },
+            
+            onError: (err) => {
+                console.error(err)
+            },
+        })
+    }
+    return (
+        <Dialog
+            open={open} 
+            onOpenChange={(event) => {
+                setOpen(event);
+                reset();
+            }}
+        >
+            <DialogTrigger asChild>
+                <Button variant="outline" className="">
+                    Tambah
+                </Button>
+            </DialogTrigger>
+            <DialogContent
+                className="w-11/12 lg:w-1/2 max-w-full h-[90%] overflow-y-auto" 
+                onInteractOutside={(event) => event.preventDefault()} 
+                onEscapeKeyDown={(event) => event.preventDefault()}
+            >
+                {/* <DialogTitle>Tambah Menu</DialogTitle> */}
+                <div className="w-full overflow-auto mt-5">
+                    <form onSubmit={handleSubmit}>
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                            <div>
+                                <Label>Nama</Label>
+                                <Input
+                                    type="text"
+                                    placeholder="Nama menu"
+                                    className="mt-1"
+                                    onChange={(e) => setData('name', e.target.value)}
+                                    value={data.name}
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <Label>Kategori</Label>
+                                <Select
+                                    options={[
+                                        { value: 'appetizer', label: 'Makanan Pembuka' },
+                                        { value: 'main_course', label: 'Makanan Utama' },
+                                        { value: 'dessert', label: 'Makanan Penutup' },
+                                        { value: 'beverage', label: 'Minuman' }
+                                    ]}
+                                    className="mt-1"
+                                    placeholder="Pilih kategori"
+                                    onChange={(option) => setData('category', option.value)}
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <Label>Harga</Label>
+                                <div className="relative">
+                                    <div className="absolute left-2 top-1/2 mr-2 transform -translate-y-1/2">
+                                        Rp
+                                    </div>
+                                    <Input
+                                        type="text"
+                                        className="pl-8"
+                                        value={numeral(data.price).format('0,0')}
+                                        onChange={(e) => {
+                                            const raw = e.target.value.replaceAll(',', '');
+                                            if (!isNaN(raw)) setData('price', raw);
+                                        }}
+                                        required
+                                    />
+                                </div>
+                            </div>
+                        </div>
+                        <div className="grid-cols-1 mt-4">
+                            <div>
+                                <Label>Deskripsi</Label>
+                                <Textarea
+                                    placeholder="Masukkan deskripsi menu"
+                                    className="mt-1"
+                                    onChange={(e) => setData('description', e.target.value)}
+                                    value={data.description}
+                                    required
+                                />
+                            </div>
+                        </div>
+                        <div className="mt-6 flex justify-end">
+                            <AddImage onSubmit={handleAddImage} />
+                        </div>
+                        <div className="mt-6">
+                            <div className="flex flex-wrap gap-4">
+                                {data.images.map((img, index) => (
+                                    <div key={index} className="relative">
+                                        <img src={URL.createObjectURL(img)} alt="preview" className="w-24 h-24 object-cover rounded" />
+                                        <button
+                                            type="button"
+                                            onClick={() => handleRemoveImage(index)}
+                                            className="absolute top-0 right-0 bg-red-500 text-white rounded-full p-1"
+                                        >
+                                            <LucideTrash className="w-4 h-4" />
+                                        </button>
+                                    </div>
+                                ))}
+                                {/* <AddImage onSubmit={handleAddImage} /> */}
+                            </div>
+                        </div>
+                        <DialogFooter className="mt-6 flex justify-end space-x-2">
+                            <Button type="button" variant="outline" onClick={() => setOpen(false)}>Batal</Button>
+                            <Button type="submit" disabled={processing}>
+                                {processing ? 'Menyimpan...' : 'Simpan'}
+                            </Button>
+                        </DialogFooter>
+                    </form>
+                </div>
+            </DialogContent>
+        </Dialog>
+    )
+}
+
+export default AddMenu
