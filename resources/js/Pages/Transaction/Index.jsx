@@ -153,7 +153,7 @@ const Index = ({ ...props }) => {
                                         <div className='p-1 border-b'>
                                             <div className="flex justify-between">
                                                 <p className="text-sm text-gray-500">Tanggal Booking :</p>
-                                                <p>{dayjs(selectedTransaction.booking_date).format('dddd, DD/MM/YYYY  HH:mm')}</p>
+                                                <p>{dayjs(selectedTransaction.booking_start).format('dddd, DD/MM/YYYY  HH:mm')}</p>
                                             </div>
                                         </div>
                                     </div>

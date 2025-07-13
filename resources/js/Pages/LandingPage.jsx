@@ -8,31 +8,13 @@ import Autoplay from 'embla-carousel-autoplay';
 import Header from '@/Components/Customer/Header';
 import { router } from '@inertiajs/react';
 
-const foodItems = [
-  {
-    name: 'Rendang',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/0/0c/Rendang_daging_sapi_padang.JPG',
-    description: 'Masakan khas Minang yang kaya rempah dan dimasak lama hingga empuk.'
-  },
-  {
-    name: 'Sate Ayam',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/9/9f/Sate_Ponorogo.jpg',
-    description: 'Daging ayam yang ditusuk dan dibakar, disajikan dengan bumbu kacang.'
-  },
-  {
-    name: 'Gado-gado',
-    image: 'https://upload.wikimedia.org/wikipedia/commons/4/4a/Gado_gado_Jakarta.jpg',
-    description: 'Salad sayur Indonesia dengan bumbu kacang.'
-  }
-];
-
-export default function LandingPage({ auth, menus }) {
+export default function LandingPage({ auth, menus, appName }) {
   
   return (
     <div className="bg-red-50 text-gray-800">
-      <Header auth={auth} />
+      <Header appName={appName} auth={auth} />
       <section className="text-center py-16 bg-white px-4">
-        <h2 className="text-4xl font-bold mb-4">Selamat datang di Warung Nusantara</h2>
+        <h2 className="text-4xl font-bold mb-4">Selamat datang di {appName}</h2>
         <p className="text-lg max-w-2xl mx-auto mb-8">
           Nikmati makanan khas Indonesia yang lezat dan menggugah selera. Dibuat dengan resep otentik dari seluruh penjuru negeri.
         </p>

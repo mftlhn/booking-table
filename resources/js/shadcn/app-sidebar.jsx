@@ -15,7 +15,7 @@ import {
   SidebarMenuSubItem,
   SidebarRail,
 } from "@/shadcn/ui/sidebar"
-import { Calendar, ChevronRight, File, Hamburger, Home, Inbox, Search, Settings, Settings2, Users, Wallet2 } from "lucide-react"
+import { Calendar, ChevronRight, File, FileBarChart2, Hamburger, Home, Inbox, Search, Settings, Settings2, Users, Wallet2 } from "lucide-react"
 import { usePage } from "@inertiajs/react"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "./ui/collapsible"
 
@@ -161,6 +161,7 @@ const iconMap = {
     Users: Users,
     Wallet: Wallet2,
     Food: Hamburger,
+    File: FileBarChart2
 }
 
 export function AppSidebar() {
@@ -169,6 +170,11 @@ export function AppSidebar() {
         title: "Dashboard",
         url: "/admin/dashboard",
         icon: 'Home',
+      },
+      {
+        title: "Laporan",
+        url: "/admin/reports",
+        icon: 'File',
       },
       {
         title: "User",

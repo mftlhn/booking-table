@@ -81,12 +81,6 @@ const Index = ({ ...props }) => {
                                         </TableRow>
                                     ))
                                 }
-                                {/* <TableRow>
-                                    <TableCell className="font-medium">INV001</TableCell>
-                                    <TableCell>Paid</TableCell>
-                                    <TableCell>Credit Card</TableCell>
-                                    <TableCell className="text-right">$250.00</TableCell>
-                                </TableRow> */}
                             </TableBody>
                         </Table>
                         <div className="flex justify-end mt-5 p-4">

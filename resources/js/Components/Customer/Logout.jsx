@@ -20,9 +20,9 @@ const Logout = () => {
     return (
         <AlertDialog>
             <AlertDialogTrigger>
-                <Button className="text-white hover:underline hover:bg-transparent bg-transparent p-0 m-0 border-none outline-none">
+                <a href="#" className="text-white hover:underline">
                     Keluar
-                </Button>
+                </a>
             </AlertDialogTrigger>
             <AlertDialogContent>
                 <AlertDialogHeader>

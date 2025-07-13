@@ -2,7 +2,7 @@ import { usePage } from '@inertiajs/react'
 import React from 'react'
 import Logout from './Logout';
 
-const Header = ({ auth }) => {
+const Header = ({ auth, appName }) => {
     const url = usePage().url.split('/')[1];    
 
     return (
@@ -10,7 +10,7 @@ const Header = ({ auth }) => {
             <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0">
                 {/* <h1 className="text-3xl font-bold">Warung Nusantara</h1> */}
                 <a href="/" className="text-3xl font-bold text-white hover:text-gray-200 transition-colors">
-                    Warung Nusantara
+                    {appName}
                 </a>
                 <nav className="space-x-4 text-center">
                     {

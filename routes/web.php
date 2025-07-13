@@ -7,6 +7,7 @@ use App\Http\Controllers\FamilyController;
 use App\Http\Controllers\HomePageController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TableController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\UserController;
@@ -46,6 +47,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::prefix('/admin')->middleware(RoleMiddleware::class)->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+        
+        Route::controller(ReportController::class)->group(function () {
+            Route::get('/reports', 'index')->name('report.index');
+            Route::get('/search-reports/{month}/{year}', 'searchTransaction');
+            Route::get('/export-reports-excel', 'exportExcel');
+            Route::get('/export-reports-pdf', 'exportPdf');
+        });
 
         // Menu Management
         Route::controller(MenuController::class)->middleware(SpatieRoleMiddleware::class . ':admin')->group(function () {
