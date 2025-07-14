@@ -153,7 +153,6 @@ const data = {
 
 const iconMap = {
     Home: Home,
-    File: File,
     Settings: Settings,
     Calendar: Calendar,
     Inbox: Inbox,
