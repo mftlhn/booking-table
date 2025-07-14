@@ -45,7 +45,7 @@ class AdminTransactionController extends Controller
             $transaction = Transaction::find($request->id);
 
             $transaction->update([
-                'status' => 'canceled',
+                'status' => 'cancelled',
                 'canceled_reason' => $request->canceled_reason
             ]);
         });

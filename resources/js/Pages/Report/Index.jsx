@@ -58,6 +58,7 @@ const Index = ({ ...props }) => {
                     Reports
                 </h2>
             }
+            appName={props.appName}
         >
             <Head title="Reports" />
             <div className="py-12">

@@ -12,7 +12,7 @@ import { Link, usePage } from '@inertiajs/react';
 import { UserCircleIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
-export default function AuthenticatedLayout({ header, children }) {
+export default function AuthenticatedLayout({ header, children, appName }) {
     const user = usePage().props.auth.user;
     const { flash } = usePage().props;
     useEffect(() => {
@@ -203,7 +203,7 @@ export default function AuthenticatedLayout({ header, children }) {
         //     <main>{children}</main>
         // </div>
         <SidebarProvider>
-            <AppSidebar />
+            <AppSidebar appName={appName} />
             <SidebarInset>
                 <header className="flex h-16 shrink-0 items-center border-b px-4">
                     <SidebarTrigger />

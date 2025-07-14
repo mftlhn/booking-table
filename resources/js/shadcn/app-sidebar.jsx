@@ -164,7 +164,7 @@ const iconMap = {
     File: FileBarChart2
 }
 
-export function AppSidebar() {
+export function AppSidebar({ appName }) {
   const items = [
       {
         title: "Dashboard",
@@ -239,7 +239,7 @@ export function AppSidebar() {
     // </Sidebar>)
       <Sidebar>
         <SidebarHeader className="flex items-center mt-3">
-            <p className='font-bold text-2xl text-red-500'>Donburi Resto</p>
+            <p className='font-bold text-xl text-red-500'>{appName || 'App Name'}</p>
         </SidebarHeader>
         <SidebarContent className="scrollbar-thin mt-5">
             <SidebarMenu>

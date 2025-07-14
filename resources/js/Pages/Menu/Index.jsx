@@ -31,6 +31,7 @@ const Index = ({ ...props }) => {
                     Menu
                 </h2>
             }
+            appName={props.appName}
         >
             <Head title="Menu" />
 

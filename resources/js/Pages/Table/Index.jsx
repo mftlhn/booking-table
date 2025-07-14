@@ -21,6 +21,7 @@ const Index = ({ ...props }) => {
                     Table
                 </h2>
             }
+            appName={props.appName}
         >
             <Head title="Table" />
             <div className="py-12">

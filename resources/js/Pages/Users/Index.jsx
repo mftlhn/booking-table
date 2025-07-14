@@ -21,6 +21,7 @@ const Index = ({ ...props }) => {
                     User
                 </h2>
             }
+            appName={props.appName}
         >
             <Head title="Table" />
 

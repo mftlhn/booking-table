@@ -47,6 +47,7 @@ const Index = ({ ...props }) => {
                     Transaksi
                 </h2>
             }
+            appName={props.appName}
         >
             <Head title="Transaksi" />
 
