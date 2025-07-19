@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Transaction;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
@@ -12,7 +13,7 @@ class AdminTransactionController extends Controller
 {
     public function index()
     {
-        $transactions = Transaction::with(['user', 'table', 'details.menu'])
+        $transactions = Transaction::with(['user', 'table', 'details.menu', 'cashier'])
             // ->whereDate('booking_start', Carbon::now())
             ->orderBy('created_at', 'desc')
             ->get();
@@ -32,6 +33,7 @@ class AdminTransactionController extends Controller
                 'customer_payment' => $request->customer_payment,
                 'change' => $request->change,
                 'status' => 'paid',
+                'cashier_id' => Auth::user()->id,
             ]);
         });
 
@@ -46,7 +48,8 @@ class AdminTransactionController extends Controller
 
             $transaction->update([
                 'status' => 'cancelled',
-                'canceled_reason' => $request->canceled_reason
+                'canceled_reason' => $request->canceled_reason,
+                'chashier_id' => Auth::user()->id,
             ]);
         });
 

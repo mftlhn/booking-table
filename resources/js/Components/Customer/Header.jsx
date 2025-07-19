@@ -16,6 +16,7 @@ const Header = ({ auth, appName }) => {
                     {
                         url !== 'cart' ? (
                             <>
+                                <a href="#resto" className="hover:underline block md:inline">Restoran</a>
                                 <a href="#menu" className="hover:underline block md:inline">Menu</a>
                                 <a href="#location" className="hover:underline block md:inline">Lokasi</a>
                                 <a href="#contact" className="hover:underline block md:inline">Kontak</a>

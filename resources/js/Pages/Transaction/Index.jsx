@@ -157,6 +157,12 @@ const Index = ({ ...props }) => {
                                                 <p>{dayjs(selectedTransaction.booking_start).format('dddd, DD/MM/YYYY  HH:mm')}</p>
                                             </div>
                                         </div>
+                                        <div className='p-1 border-b'>
+                                            <div className="flex justify-between">
+                                                <p className="text-sm text-gray-500">Nama Kasir :</p>
+                                                <p>{selectedTransaction.cashier?.name}</p>
+                                            </div>
+                                        </div>
                                     </div>
                                     <h3 className="text-xl font-bold mt-10 mb-4">Detail Pesanan</h3>
                                     <table className="min-w-full divide-y divide-gray-200">

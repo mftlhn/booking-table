@@ -19,7 +19,8 @@ class Transaction extends Model
         'customer_payment',
         'charge',
         'change',
-        'canceled_reason'
+        'canceled_reason',
+        'cashier_id'
     ];
 
     public function user()
@@ -35,5 +36,10 @@ class Transaction extends Model
     public function table()
     {
         return $this->belongsTo(Table::class);
+    }
+
+    public function cashier()
+    {
+        return $this->belongsTo(User::class, 'cashier_id');
     }
 }

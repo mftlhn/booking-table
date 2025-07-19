@@ -25,7 +25,12 @@ export default function LandingPage({ auth, menus, appName }) {
           Lihat Menu
         </Button>
       </section>
-
+      <section id='resto' className="py-16 bg-gray-100 px-4">
+        <div className="container mx-auto">
+          <h3 className="text-3xl font-bold text-center mb-12 text-red-500">Restoran Kami</h3>
+          <img src="/images/interior-resto.jpg" alt="" className='h-[500px] w-full object-cover rounded-lg' />
+        </div>
+      </section>
       <section id="menu" className="py-16 bg-gray-100 px-4">
         <div className="container mx-auto">
           <h3 className="text-3xl font-bold text-center mb-12 text-red-500">Menu Rekomendasi</h3>
