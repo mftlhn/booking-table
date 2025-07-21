@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Transaction;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -54,5 +55,15 @@ class AdminTransactionController extends Controller
         });
 
         return back()->with('success', 'Transaksi berhasil dibatalkan!');
+    }
+
+    public function print($id)
+    {
+        $transaction = Transaction::with(['user', 'table', 'details.menu', 'cashier'])
+                        ->find($id);
+
+
+        $pdf = Pdf::loadView('report.invoice', compact('transaction'))->setPaper([0, 0, 226.77, 900], 'portrait');
+        return $pdf->stream('transaction_' . env('APP_NAME') . '.pdf');
     }
 }

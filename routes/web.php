@@ -74,6 +74,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::get('/transactions', 'index')->name('transactions.index');
             Route::post('/transactions/cashier-pay', 'pay')->name('cashier.pay');
             Route::post('/transactions/cashier-cancel', 'cancel')->name('cashier.cancel');
+            Route::get('/transaction/{id}/print', 'print');
         });
 
         Route::controller(TableController::class)->middleware(SpatieRoleMiddleware::class . ':admin')->group(function () {

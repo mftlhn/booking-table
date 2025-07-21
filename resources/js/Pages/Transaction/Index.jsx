@@ -3,7 +3,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout'
 import { Head } from '@inertiajs/react'
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '@/shadcn/ui/table'
 import { Button } from '@/shadcn/ui/button'
-import { ChevronLeft, ChevronRight, Edit, Image, LucidePlusSquare, Trash } from 'lucide-react'
+import { ChevronLeft, ChevronRight, Edit, Image, Link, LucidePlusSquare, Printer, Trash } from 'lucide-react'
 import Select from 'react-select'
 import { Input } from '@/shadcn/ui/input'
 import { useSearch } from '@/hooks/useSearch'
@@ -131,7 +131,23 @@ const Index = ({ ...props }) => {
                         <div className="flex-1 h-[80vh] bg-white p-4 shadow-lg overflow-y-auto">
                             {selectedTransaction ? (
                                 <div>
-                                    <h3 className="text-xl font-bold mb-4">Transaksi</h3>
+                                    <div className="flex justify-between flex-row">
+                                        <h3 className="text-xl font-bold mb-4">Transaksi</h3>
+                                        <a
+                                            href={`/admin/transaction/${selectedTransaction.id}/print`}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                        >
+                                            {
+                                                selectedTransaction.status === 'paid' && (
+                                                    <Button className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-full">
+                                                        <Printer className="w-4 h-4 mr-2" />
+                                                        Cetak Struk
+                                                    </Button>
+                                                )
+                                            }
+                                        </a>
+                                    </div>
                                     <div className="grid grid-cols-2 gap-4">
                                         <div className='p-1 border-b'>
                                             <div className="flex justify-between">
@@ -205,52 +221,54 @@ const Index = ({ ...props }) => {
                                     </table>
                                     <h3 className="text-xl font-bold mt-10 mb-4">Total Pembayaran</h3>
                                     <table className="min-w-full divide-y divide-gray-200">
-                                        <tr>
-                                            <th className="px-6 bg-gray-100 py-3 w-[80%] text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Total Harga
-                                            </th>
-                                            <td className="px-6 py-4 whitespace-nowrap border border-gray-100 text-right text-sm text-gray-900">
-                                                Rp {numeral(selectedTransaction.subtotal_price).format('0,0')}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th className="px-6 bg-gray-100 py-3 w-[80%] text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Pajak (PB1 10%)
-                                            </th>
-                                            <td className="px-6 py-4 whitespace-nowrap border border-gray-100 text-right text-sm text-gray-900">
-                                                Rp {numeral(selectedTransaction.tax).format('0,0')}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <th className="px-6 bg-gray-100 py-3 w-[80%] text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                                Total Bayar Customer
-                                            </th>
-                                            <td className="px-6 py-4 whitespace-nowrap border border-gray-100 text-right text-sm text-gray-900">
-                                                Rp {numeral(selectedTransaction.total_price).format('0,0')}
-                                            </td>
-                                        </tr>
-                                        {
-                                            selectedTransaction.status === 'paid' && (
-                                                <>
-                                                    <tr>
-                                                        <th className="px-6 bg-red-300 py-3 w-[80%] text-right text-xs font-medium text-white uppercase tracking-wider">
-                                                            Customer Bayar
-                                                        </th>
-                                                        <td className="px-6 py-4 whitespace-nowrap border border-gray-100 text-right text-sm text-gray-900">
-                                                            Rp {numeral(selectedTransaction.customer_payment).format('0,0')}
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th className="px-6 bg-red-300 py-3 w-[80%] text-right text-xs font-medium text-white uppercase tracking-wider">
-                                                            Kembalian
-                                                        </th>
-                                                        <td className="px-6 py-4 whitespace-nowrap border border-gray-100 text-right text-sm text-gray-900">
-                                                            Rp {numeral(selectedTransaction.change).format('0,0')}
-                                                        </td>
-                                                    </tr>
-                                                </>
-                                            )
-                                        }
+                                        <tbody>
+                                            <tr>
+                                                <th className="px-6 bg-gray-100 py-3 w-[80%] text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                    Total Harga
+                                                </th>
+                                                <td className="px-6 py-4 whitespace-nowrap border border-gray-100 text-right text-sm text-gray-900">
+                                                    Rp {numeral(selectedTransaction.subtotal_price).format('0,0')}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th className="px-6 bg-gray-100 py-3 w-[80%] text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                    Pajak (PB1 10%)
+                                                </th>
+                                                <td className="px-6 py-4 whitespace-nowrap border border-gray-100 text-right text-sm text-gray-900">
+                                                    Rp {numeral(selectedTransaction.tax).format('0,0')}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th className="px-6 bg-gray-100 py-3 w-[80%] text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                                    Total Bayar Customer
+                                                </th>
+                                                <td className="px-6 py-4 whitespace-nowrap border border-gray-100 text-right text-sm text-gray-900">
+                                                    Rp {numeral(selectedTransaction.total_price).format('0,0')}
+                                                </td>
+                                            </tr>
+                                            {
+                                                selectedTransaction.status === 'paid' && (
+                                                    <>
+                                                        <tr>
+                                                            <th className="px-6 bg-red-300 py-3 w-[80%] text-right text-xs font-medium text-white uppercase tracking-wider">
+                                                                Customer Bayar
+                                                            </th>
+                                                            <td className="px-6 py-4 whitespace-nowrap border border-gray-100 text-right text-sm text-gray-900">
+                                                                Rp {numeral(selectedTransaction.customer_payment).format('0,0')}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th className="px-6 bg-red-300 py-3 w-[80%] text-right text-xs font-medium text-white uppercase tracking-wider">
+                                                                Kembalian
+                                                            </th>
+                                                            <td className="px-6 py-4 whitespace-nowrap border border-gray-100 text-right text-sm text-gray-900">
+                                                                Rp {numeral(selectedTransaction.change).format('0,0')}
+                                                            </td>
+                                                        </tr>
+                                                    </>
+                                                )
+                                            }
+                                        </tbody>
                                     </table>
                                     {
                                         selectedTransaction.status === 'canceled' && (
